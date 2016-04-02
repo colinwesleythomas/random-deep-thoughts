@@ -5,16 +5,20 @@ import Ember from 'ember';
 const { computed, get } = Ember;
 
 export default Ember.Service.extend({
-  patterns: ["say", "don't say", "think", "don't think", "know", "don't know"],
+  verbs: ["see", "don't see", "say", "don't say", "think", "don't think", "know", "don't know", "help", "don't help"],
+  nouns: ["cats", "dogs", "people", "lovers", "friends"],
   subjects: ["you", "I", "we", "they", "he", "she"],
 
   thoughts: computed(function(){
-    let patterns = get(this, 'patterns');
+    let verbs = get(this, 'verbs');
     let subjects = get(this, 'subjects');
-    let rp = this.shuffle(patterns); // random patterns
+    let nouns = get(this, 'nouns');
+    let rp = this.shuffle(verbs); // random verbs
+    let rn = this.shuffle(nouns); // random nouns
     let rs = this.shuffle(subjects); // random subjects
     let s = rs[0];
-    let phrase = `${s} ${rp[0]} ${s} ${rp[1]} ${s} ${rp[2]} ${s} ${rp[3]}`;
+    let n = rn[0];
+    let phrase = `${s} ${rp[0]} ${s} ${rp[1]} when ${s} ${rp[2]} ${n} ${s} ${rp[3]}`;
     return phrase;
   }).volatile(),
 
