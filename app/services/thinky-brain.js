@@ -1,5 +1,5 @@
 import Ember from 'ember';
-
+import shuffle from 'random-deep-thoughts/utils/shuffle';
 // How to use
 // thinkyBrain: Ember.inject.service('thinky-brain')
 const { computed, get } = Ember;
@@ -68,14 +68,14 @@ export default Ember.Service.extend({
     let conjunction_words = get(this, 'conjunction_words');
 
     // let nouns = get(this, 'nouns');
-    let rpv = this.shuffle(positive_verbs); // random verbs
-    let rv = this.shuffle(all_verbs); // random verbs
-    let mv = this.shuffle(modal_verbs); // random verbs
-    let qw = this.shuffle(q_words); // random question words
-    let rs = this.shuffle(subjects); // random subjects
+    let rpv = shuffle(positive_verbs); // random verbs
+    let rv  = shuffle(all_verbs); // random verbs
+    let mv  = shuffle(modal_verbs); // random verbs
+    let qw  = shuffle(q_words); // random question words
+    let rs  = shuffle(subjects); // random subjects
     // let ras = this.shuffle(alt_subjects); // random alt subjects
-    let s = rs[0];
-    let cw = this.shuffle(conjunction_words);
+    let s  = rs[0];
+    let cw = shuffle(conjunction_words);
     // phrase object
     let p = {};
 
@@ -122,26 +122,5 @@ export default Ember.Service.extend({
                  `;
     return phrase;
   }).volatile(),
-
-
-
-
-  shuffle: function(array) {
-    var m = array.length, t, i;
-
-    // While there remain elements to shuffle…
-    while (m) {
-
-      // Pick a remaining element…
-      i = Math.floor(Math.random() * m--);
-
-      // And swap it with the current element.
-      t = array[m];
-      array[m] = array[i];
-      array[i] = t;
-    }
-
-    return array;
-  }
 
 });
