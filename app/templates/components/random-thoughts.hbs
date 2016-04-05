@@ -19,10 +19,16 @@ Character Count: <strong>{{thoughts.length}}</strong>
   <ul class="list-group">
   {{#each favorites as |fav|}}
     <li class="list-group-item">
-      {{fav}}
-      <button type="button" class="pull-right btn btn-danger btn-xs" {{action 'removeFavorite' fav}}>
-        Remove
-      </button>
+      <ul class="list-inline">
+        <li>
+          <button type="button" class="btn btn-danger btn-xs" {{action 'removeFavorite' fav}}>
+            Remove
+          </button>
+        </li>
+        <li>
+          {{fav}}
+        </li>
+      </ul>
     </li>
   {{/each}}
   </ul>
