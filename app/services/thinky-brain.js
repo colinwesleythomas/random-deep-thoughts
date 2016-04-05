@@ -5,25 +5,46 @@ import Ember from 'ember';
 const { computed, get } = Ember;
 
 export default Ember.Service.extend({
-  verbs: ["say", "think", "know", "don't say", "don't think", "don't know"],
-  q_words: ["why", "how", "when", "that", "who"],
+  positive_verbs: ["say", "think", "know", "understand"],
+  negative_verbs: ["don't think", "don't know", "don't understand"],
+  all_verbs: Ember.computed.union('positive_verbs', 'negative_verbs'),
+  q_words: ["why", "how", "when", "that", "what"],
   nouns: [],
   subjects: ["you", "I"],
-  modal_verbs: ["should", "might", "could possibly", "may very well"],
+  modal_verbs: [
+    "should",
+    "might",
+    "would never",
+    "would",
+    "may very well",
+    "ought not",
+    "could possibly",
+    "sometimes have to",
+    "don't have to"
+  ],
+
+  modal_verbs_infrequent: [
+    "may in times of distress feel the need to",
+    "certainly would be advised not to",
+    "under no circumstances would be required to",
+    "don't have to"
+  ],
 
 
   thoughts: computed(function(){
-    let verbs = get(this, 'verbs');
+    let positive_verbs = get(this, 'positive_verbs');
+    let all_verbs = get(this, 'all_verbs');
     let modal_verbs = get(this, 'modal_verbs');
     let q_words = get(this, 'q_words');
     let subjects = get(this, 'subjects');
     // let nouns = get(this, 'nouns');
-    let rv = this.shuffle(verbs); // random verbs
+    let rpv = this.shuffle(positive_verbs); // random verbs
+    let rv = this.shuffle(all_verbs); // random verbs
     let mv = this.shuffle(modal_verbs); // random verbs
     let qw = this.shuffle(q_words); // random question words
     let rs = this.shuffle(subjects); // random subjects
     let s = rs[0];
-    let cw = this.shuffle(["if", "but if", "however", "however if", "so", "thus", "although"]);
+    let cw = this.shuffle(["if", "but only if", "however", "however only if", "so", "thus", "although"]);
     // phrase object
     let p = {};
     p.s1 = s; // subject
@@ -31,11 +52,11 @@ export default Ember.Service.extend({
     p.s3 = s;
     p.s4 = s;
 
-    p.mv = mv[0]; // Modal verb
-
-    p.rv1 = rv[0]; // random verbs
+    p.mv1 = mv[0]; // Modal verb
+    p.mv2 = mv[1];
+    p.rv1 = rpv[0]; // positive only random verbs
     p.rv2 = rv[1];
-    p.rv3 = rv[2];
+    p.rv3 = rpv[2]; // positive only random verbs
     p.rv4 = rv[3];
 
     p.qw1 = qw[0]; // question word
@@ -44,16 +65,19 @@ export default Ember.Service.extend({
     p.cw = cw[0]; // conjunction word
 
     let phrase = `
-                  ${p.s1} ${p.mv}
+                  ${p.s1.capitalize()} ${p.mv1}
                   ${p.rv1} ${p.qw1}
                   ${p.s2} ${p.rv2}
                   ${p.cw}
-                  ${p.s3} ${p.rv3}
+                  ${p.s3} ${p.mv2} ${p.rv3}
                   ${p.qw2}
-                  ${p.s4} ${p.rv4}
+                  ${p.s4} ${p.rv4}.
                  `;
     return phrase;
   }).volatile(),
+
+
+
 
   shuffle: function(array) {
     var m = array.length, t, i;
