@@ -16,11 +16,16 @@ export default Ember.Component.extend({
       let thoughts = this.get('thinkyBrain').get('thoughts');
       this.set('thoughts', thoughts);
     },
+
     addFavorite: function(thoughts){
       let favs = this.get('favorites');
       favs.pushObject(thoughts);
-    }
+    },
 
+    removeFavorite: function(thoughts){
+      let favs = this.get('favorites');
+      favs.removeObject(thoughts);
+    }
 
   }
 });
