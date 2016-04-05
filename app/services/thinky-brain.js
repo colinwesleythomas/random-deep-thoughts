@@ -8,11 +8,15 @@ export default Ember.Service.extend({
   positive_verbs: ["say", "think", "know", "understand"],
   negative_verbs: ["don't think", "don't know", "don't understand"],
   all_verbs: Ember.computed.union('positive_verbs', 'negative_verbs'),
-  q_words: ["why", "how", "when", "that", "what"],
+  q_words: ["why", "how", "when", "then", "that", "what"],
   nouns: [],
-  subjects: ["you", "I"],
+  subjects: ["you", "I", "they"],
+  alt_subjects: ["one", "they"],
   modal_verbs: [
     "should",
+    "should not",
+    "should never",
+    "would be unlikely to",
     "might",
     "would never",
     "would",
@@ -20,9 +24,11 @@ export default Ember.Service.extend({
     "ought not",
     "could possibly",
     "sometimes have to",
-    "don't have to"
+    "don't have to",
+    "do"
   ],
 
+  conjunction_words: ["if", "but only if", "however", "however only if", "so", "thus", "although"],
   modal_verbs_infrequent: [
     "may in times of distress feel the need to",
     "certainly would be advised not to",
@@ -37,20 +43,36 @@ export default Ember.Service.extend({
     let modal_verbs = get(this, 'modal_verbs');
     let q_words = get(this, 'q_words');
     let subjects = get(this, 'subjects');
+    let alt_subjects = get(this, 'alt_subjects');
+    let conjunction_words = get(this, 'conjunction_words');
+
     // let nouns = get(this, 'nouns');
     let rpv = this.shuffle(positive_verbs); // random verbs
     let rv = this.shuffle(all_verbs); // random verbs
     let mv = this.shuffle(modal_verbs); // random verbs
     let qw = this.shuffle(q_words); // random question words
     let rs = this.shuffle(subjects); // random subjects
+    // let ras = this.shuffle(alt_subjects); // random alt subjects
     let s = rs[0];
-    let cw = this.shuffle(["if", "but only if", "however", "however only if", "so", "thus", "although"]);
+    let cw = this.shuffle(conjunction_words);
     // phrase object
     let p = {};
-    p.s1 = s; // subject
-    p.s2 = s;
-    p.s3 = s;
-    p.s4 = s;
+
+    let num = Math.round(Math.random());
+
+    if (num % 2 === 0){
+      // even
+      p.s1 = s; // subject
+      p.s2 = s;
+      p.s3 = s;
+      p.s4 = s;
+    } else {
+      // odd use alt subjects
+      p.s1 = alt_subjects[0]; // alt subject
+      p.s2 = alt_subjects[1];
+      p.s3 = alt_subjects[0];
+      p.s4 = alt_subjects[1];
+    }
 
     p.mv1 = mv[0]; // Modal verb
     p.mv2 = mv[1];
