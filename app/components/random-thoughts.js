@@ -1,9 +1,11 @@
 import Ember from 'ember';
+import { storageFor } from 'ember-local-storage';
 
 export default Ember.Component.extend({
+  favorites: storageFor('favorites'),
   thinkyBrain: Ember.inject.service('thinky-brain'),
   thoughts: null,
-  favorites: Ember.A([]),
+
   init(){
     this._super();
     this.set('thoughts', this.get('thinkyBrain').get('thoughts'));
