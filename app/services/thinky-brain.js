@@ -5,10 +5,29 @@ import Ember from 'ember';
 const { computed, get } = Ember;
 
 export default Ember.Service.extend({
-  positive_verbs: ["say", "think", "know", "understand"],
-  negative_verbs: ["don't think", "don't know", "don't understand"],
+  positive_verbs: [
+    "say",
+    "think",
+    "know",
+    "understand",
+    "feel",
+    "sense",
+    "recognize",
+  ],
+  q_words: ["why", "how", "when", "that", "what"],
+
+  negative_verbs: [
+    "don't think",
+    "don't know",
+    "don't understand",
+    "don't feel",
+    "don't sense",
+    "don't recognize",
+  ],
+  uncommon_verbs: ["anticipate"],
   all_verbs: Ember.computed.union('positive_verbs', 'negative_verbs'),
-  q_words: ["why", "how", "when", "then", "that", "what"],
+  topics: [], // todo
+  buzzwords: [], // todo
   nouns: [],
   subjects: ["you", "I", "they"],
   alt_subjects: ["one", "they"],
@@ -21,11 +40,13 @@ export default Ember.Service.extend({
     "would never",
     "would",
     "may very well",
+    "ought to",
     "ought not",
+    "must",
+    "must not",
     "could possibly",
     "sometimes have to",
-    "don't have to",
-    "do"
+    "don't have to"
   ],
 
   conjunction_words: ["if", "but only if", "however", "however only if", "so", "thus", "although"],
@@ -76,13 +97,17 @@ export default Ember.Service.extend({
 
     p.mv1 = mv[0]; // Modal verb
     p.mv2 = mv[1];
-    p.rv1 = rpv[0]; // positive only random verbs
-    p.rv2 = rv[1];
-    p.rv3 = rpv[2]; // positive only random verbs
-    p.rv4 = rv[3];
+
 
     p.qw1 = qw[0]; // question word
     p.qw2 = qw[1];
+
+    p.rv1 = rpv[0]; // positive only random verbs
+
+    p.rv2 = rv[1];
+    p.rv3 = rpv[2]; // positive only random verbs
+
+    p.rv4 = rv[3];
 
     p.cw = cw[0]; // conjunction word
 
