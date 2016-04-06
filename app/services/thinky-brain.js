@@ -12,7 +12,7 @@ export default Ember.Service.extend({
     return store.createRecord('word-struct');
   }),
 
-  thoughts: computed(function(){
+  thoughtTuple: computed(function(){
     let ws              = get(this, 'ws');
     let positiveVerbs   = ws.get('positiveVerbs');
     let allVerbs        = ws.get('allVerbs');
@@ -50,16 +50,84 @@ export default Ember.Service.extend({
 
     p.cw = cw[0]; // conjunction word
 
-    let phrase = `
-                  ${p.s1.capitalize()} ${p.mv1}
-                  ${p.rv1} ${p.qw1}
-                  ${p.s2} ${p.rv2}
-                  ${p.cw}
-                  ${p.s3} ${p.mv2} ${p.rv3}
-                  ${p.qw2}
-                  ${p.s4} ${p.rv4}.
+
+    let verb_dict = {
+      "say": {
+        "why": "speak",
+        "how": "speak",
+        "when": "speak",
+        "that": "say",
+        "what": "say",
+      }
+    };
+
+    if (p.rv2 === "say") {
+      p.rv2 = verb_dict["say"][p.qw1];
+    }
+
+    if (p.rv4 === "say") {
+      p.rv4 = verb_dict["say"][p.qw2];
+    }
+
+    let tuple = {
+      structure: null,
+      diagram: null,
+      phrase: null,
+    };
+
+    let structure = `
+                  Subject 1
+                  Modal verb 1
+                  Random verb 1
+                  Question 1
+                  Subject 2
+                  Random verb 2
+                  Conjunctive
+                  Subject 3
+                  Modal verb 3
+                  Random verb 3
+                  Question 2
+                  Subject 4
+                  Random verb 4
                  `;
-    return phrase;
+
+    let diagram = {
+      "Subject 1": p.s1.capitalize(),
+      "Modal verb 1": p.mv1,
+      "Random verb 1": p.rv1,
+      "Question 1": p.qw1,
+      "Subject 2": p.s2,
+      "Random verb 2": p.rv2,
+      "Conjunctive": p.cw,
+      "Subject 3": p.s3,
+      "Modal verb 2": p.mv2,
+      "Random verb 3": p.rv3,
+      "Question 2": p.qw2,
+      "Subject 4": p.s4,
+      "Random verb 4": p.rv4
+    };
+
+    let phrase = `
+                  ${p.s1.capitalize()}
+                  ${p.mv1}
+                  ${p.rv1}
+                  ${p.qw1}
+                  ${p.s2}
+                  ${p.rv2}
+                  ${p.cw}
+                  ${p.s3}
+                  ${p.mv2}
+                  ${p.rv3}
+                  ${p.qw2}
+                  ${p.s4}
+                  ${p.rv4}.
+                 `;
+
+    tuple.structure = structure;
+    tuple.diagram = diagram;
+    tuple.phrase = phrase;
+
+    return tuple;
   }).volatile(),
 
 });

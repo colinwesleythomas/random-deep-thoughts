@@ -4,10 +4,25 @@
   <p class="lead">{{thoughts}}</p>
 </div>
 
+{{#if debug}}
 <small>
 Character Count: <strong>{{thoughts.length}}</strong>
-</small>
+<br>
+Sentence Stucture: <br>
+<ul class="list-inline">
+  {{#each-in diagram as |k v|}}
+    <li>
+      <dl>
+        <dt>{{k}}</dt>
+        <dd>{{v}}</dd>
+      </dl>
+    </li>
+  {{/each-in}}
+</ul>
 
+
+</small>
+{{/if}}
 <hr>
 
 <button type="button" class="btn btn-primary" {{action 'changeThoughts'}}>More Thoughts</button>

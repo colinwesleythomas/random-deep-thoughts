@@ -67,7 +67,7 @@ export default DS.Model.extend({
     // aa = avoidance after
     return [
       {p: "should", n: "should not", sn: "should never", ab: [], aa: []},
-      {p: "would be likely to", n: "would be unlikely to", sn: "would never be", ab: [], aa: []},
+      {p: "would be likely to", n: "would be unlikely to", sn: "would never", ab: [], aa: []},
       {p: "might", n: "might not", sn: "might never", ab: [], aa: []},
       {p: "would", n: "would not", sn: "would never", ab: [], aa: []},
       {p: "may very well", n: "may very well not", sn: "may very well never", ab: [], aa: []},
