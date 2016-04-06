@@ -5,95 +5,34 @@ import shuffle from 'random-deep-thoughts/utils/shuffle';
 const { computed, get } = Ember;
 
 export default Ember.Service.extend({
-  positive_verbs: [
-    "say",
-    "think",
-    "know",
-    "understand",
-    "feel",
-    "sense",
-    "recognize",
-  ],
-  q_words: ["why", "how", "when", "that", "what"],
+  store: Ember.inject.service('store'),
 
-  negative_verbs: [
-    "don't think",
-    "don't know",
-    "don't understand",
-    "don't feel",
-    "don't sense",
-    "don't recognize",
-  ],
-  uncommon_verbs: ["anticipate"],
-  all_verbs: Ember.computed.union('positive_verbs', 'negative_verbs'),
-  topics: [], // todo
-  buzzwords: [], // todo
-  nouns: [],
-  subjects: ["you", "I", "they"],
-  alt_subjects: ["one", "they"],
-  modal_verbs: [
-    "should",
-    "should not",
-    "should never",
-    "would be unlikely to",
-    "might",
-    "would never",
-    "would",
-    "may very well",
-    "ought to",
-    "ought not",
-    "must",
-    "must not",
-    "could possibly",
-    "sometimes have to",
-    "don't have to"
-  ],
-
-  conjunction_words: ["if", "but only if", "however", "however only if", "so", "thus", "although"],
-  modal_verbs_infrequent: [
-    "may in times of distress feel the need to",
-    "certainly would be advised not to",
-    "under no circumstances would be required to",
-    "don't have to"
-  ],
-
+  ws: computed(function(){
+    let store = get(this, 'store');
+    return store.createRecord('word-struct');
+  }),
 
   thoughts: computed(function(){
-    let positive_verbs = get(this, 'positive_verbs');
-    let all_verbs = get(this, 'all_verbs');
-    let modal_verbs = get(this, 'modal_verbs');
-    let q_words = get(this, 'q_words');
-    let subjects = get(this, 'subjects');
-    let alt_subjects = get(this, 'alt_subjects');
-    let conjunction_words = get(this, 'conjunction_words');
+    let ws              = get(this, 'ws');
+    let positiveVerbs   = ws.get('positiveVerbs');
+    let allVerbs        = ws.get('allVerbs');
+    let modalVerbs      = ws.get('modalVerbs');
+    let questions       = ws.get('questions');
+    let subjects        = ws.get('subjects');
+    let allConjunctives = ws.get('allConjunctives');
 
-    // let nouns = get(this, 'nouns');
-    let rpv = shuffle(positive_verbs); // random verbs
-    let rv  = shuffle(all_verbs); // random verbs
-    let mv  = shuffle(modal_verbs); // random verbs
-    let qw  = shuffle(q_words); // random question words
-    let rs  = shuffle(subjects); // random subjects
-    // let ras = this.shuffle(alt_subjects); // random alt subjects
-    let s  = rs[0];
-    let cw = shuffle(conjunction_words);
-    // phrase object
-    let p = {};
+    let rpv = shuffle(positiveVerbs); // random verbs
+    let rv  = shuffle(allVerbs); // random verbs
+    let mv  = shuffle(modalVerbs); // random verbs
+    let qw  = shuffle(questions); // random question words
+    let cw = allConjunctives;
 
-    let num = Math.round(Math.random());
+    let p = {}; // phrase object
 
-    if (num % 2 === 0){
-      // even
-      p.s1 = s; // subject
-      p.s2 = s;
-      p.s3 = s;
-      p.s4 = s;
-    } else {
-      // odd use alt subjects
-      p.s1 = alt_subjects[0]; // alt subject
-      p.s2 = alt_subjects[1];
-      p.s3 = alt_subjects[0];
-      p.s4 = alt_subjects[1];
-    }
+    p.s1 = subjects[0]; // subject
+    p.s2 = subjects[1];
+    p.s3 = subjects[2];
+    p.s4 = subjects[3];
 
     p.mv1 = mv[0]; // Modal verb
     p.mv2 = mv[1];
