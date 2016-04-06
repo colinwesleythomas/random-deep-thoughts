@@ -22,10 +22,10 @@ export default Ember.Service.extend({
     let allConjunctives = ws.get('allConjunctives');
 
     let rpv = shuffle(positiveVerbs); // random verbs
-    let rv  = shuffle(allVerbs); // random verbs
-    let mv  = shuffle(modalVerbs); // random verbs
-    let qw  = shuffle(questions); // random question words
-    let cw = allConjunctives;
+    let rv  = shuffle(allVerbs);      // random verbs
+    let mv  = shuffle(modalVerbs);    // random verbs
+    let qw  = shuffle(questions);     // random question words
+    let cw  = allConjunctives;
 
     let p = {}; // phrase object
 
