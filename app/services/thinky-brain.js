@@ -102,15 +102,14 @@ export default Ember.Service.extend({
     // conjunctive words
     let seedWordConjunctiveWords = [
       "if",
-      "if not",
       "but only if",
-      "but only if not",
       "however",
       "however only if",
       "so that",
-      "so not to",
+      "so",
       "thus",
-      "thus never"
+      "therefore",
+      ", which is why"
     ];
     seedWordConjunctiveWords.forEach((seed)=>{
       let obj = Ember.Object.create({value: seed, enabled: true, weight: 1});

@@ -12,7 +12,6 @@ export default Ember.Component.extend({
     this._super();
     let ws = this.get('thinkyBrain').get('ws');
     let thoughtTuple = ws.get('thoughtTuple');
-    console.log('thoughtTuple=', thoughtTuple);
 
     this.set('diagram', thoughtTuple.diagram);
     this.set('thoughts', thoughtTuple.phrase);
@@ -22,7 +21,6 @@ export default Ember.Component.extend({
     changeThoughts: function(){
       let ws = this.get('thinkyBrain').get('ws');
       let thoughtTuple = ws.get('thoughtTuple');
-      console.log('thoughtTuple=', thoughtTuple);
 
       this.set('diagram', thoughtTuple.diagram);
       this.set('thoughts', thoughtTuple.phrase);

@@ -3,7 +3,7 @@ let rand = function(min, max) {
 };
 
 let getRandomItem = function(list, weight) {
-    let total_weight = weight.reduce(function (prev, cur, i, arr) {
+    let total_weight = weight.reduce(function (prev, cur, i, arr) { // jshint ignore:line
         return prev + cur;
     });
 
@@ -29,6 +29,5 @@ let getRandomItem = function(list, weight) {
 
 export default function weightedList(list, weights) {
   let randomItem = getRandomItem(list, weights);
-  console.log(randomItem);
   return randomItem;
 }

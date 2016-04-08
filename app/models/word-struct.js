@@ -56,7 +56,6 @@ export default DS.Model.extend({
       }
     }
 
-    console.log('subjectList=', subjectList);
     return subjectList;
   }).volatile(),
 
@@ -158,26 +157,9 @@ export default DS.Model.extend({
     }
 
     let tuple = {
-      structure: null,
       diagram: null,
       phrase: null,
     };
-
-    let structure = `
-                  Subject 1
-                  Modal verb 1
-                  Random verb 1
-                  Question 1
-                  Subject 2
-                  Random verb 2
-                  Conjunctive
-                  Subject 3
-                  Modal verb 3
-                  Random verb 3
-                  Question 2
-                  Subject 4
-                  Random verb 4
-                 `;
 
     let diagram = {
       "Subject 1": p.s1.capitalize(),
@@ -211,7 +193,6 @@ export default DS.Model.extend({
                   ${p.rv4}.
                  `;
 
-    tuple.structure = structure;
     tuple.diagram = diagram;
     tuple.phrase = phrase;
 
