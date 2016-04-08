@@ -13,3 +13,37 @@ dd {
 .word-item {
   padding-bottom: 5px;
 }
+
+
+h1, h2, h3, h4 {
+  color: #fad48b;
+  margin-bottom: 10px;
+}
+
+.thoughts {
+  color: rgba(250, 212, 139, 0.5);
+  margin-bottom: 10px;
+}
+
+
+.debug {
+  background-color: rgba(250, 212, 139, 0.5);
+  color: #000000;
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.favorites {
+  background-color: rgba(157, 60, 39, 0.5);
+  color: #fad48b;
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+
+body.leather {
+    background-image: url("/assets/images/leather.jpg");
+    background-repeat: repeat;
+}

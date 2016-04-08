@@ -1,91 +1,94 @@
 {{yield}}
 
-<div class="well well-sm">
-  <p class="lead">{{thoughts}}</p>
-</div>
-
-<hr>
+<h2 class="thoughts">{{thoughts}}</h2>
 
 <button type="button" class="btn btn-primary btn-xs" {{action 'changeThoughts'}}>More Thoughts</button>
 <button type="button" class="btn btn-default btn-xs" {{action 'addFavorite' thoughts}}>Fav</button>
 <br>
 <br>
-{{input type="checkbox" name="debug" checked=debug}} Debug mode?
+
+<div class="debug">
+  {{input type="checkbox" name="debug" checked=debug}} Debug mode?
+</div>
 
 {{#if debug}}
 
-<div class="row">
-  <div class="col-md-1">
-    <small>
-      Characters: <br>
-      <strong>{{thoughts.length}}</strong>
-    </small>
+<div class="debug">
+
+  <div class="row">
+    <div class="col-md-1">
+      <small>
+        Characters: <br>
+        <strong>{{thoughts.length}}</strong>
+      </small>
+    </div>
+
+    <div class="col-md-11">
+      <small>
+        Sentence Stucture: <br>
+        <ul class="list-inline">
+          {{#each-in diagram as |k v|}}
+            <li>
+              <dl>
+                <dt>{{k}}</dt>
+                <dd>{{v}}</dd>
+              </dl>
+            </li>
+          {{/each-in}}
+        </ul>
+      </small>
+    </div>
   </div>
 
-  <div class="col-md-11">
-    <small>
-      Sentence Stucture: <br>
-      <ul class="list-inline">
-        {{#each-in diagram as |k v|}}
-          <li>
-            <dl>
-              <dt>{{k}}</dt>
-              <dd>{{v}}</dd>
-            </dl>
-          </li>
-        {{/each-in}}
-      </ul>
-    </small>
+  <div class="row">
+    <div class="col-sm-3 col-md-3">
+        <strong>{{word-items items=thinkyBrain.ws.questionWords title="Questions"}}</strong>
+    </div>
+
+    <div class="col-sm-3 col-md-3">
+        <strong>{{word-items items=thinkyBrain.ws.subjectWords title="Subjects"}}</strong>
+    </div>
+
+    <div class="col-sm-3 col-md-3">
+        <strong>{{word-items items=thinkyBrain.ws.positiveVerbWords title="Positive Verbs"}}</strong>
+    </div>
+
+    <div class="col-sm-3 col-md-3">
+        <strong>{{word-items items=thinkyBrain.ws.negativeVerbWords title="Negative Verbs"}}</strong>
+    </div>
+
+    <div class="col-sm-3 col-md-3">
+        <strong>{{word-items items=thinkyBrain.ws.modalVerbWords title="Modal Verbs"}}</strong>
+    </div>
+
+    <div class="col-sm-3 col-md-3">
+        <strong>{{word-items items=thinkyBrain.ws.conjunctiveWords title="Conjunctive Phrases"}}</strong>
+    </div>
+
   </div>
+
 </div>
-
-<div class="row">
-  <div class="col-sm-3 col-md-3">
-      <strong>{{word-items items=thinkyBrain.ws.questionWords title="Questions"}}</strong>
-  </div>
-
-  <div class="col-sm-3 col-md-3">
-      <strong>{{word-items items=thinkyBrain.ws.subjectWords title="Subjects"}}</strong>
-  </div>
-
-  <div class="col-sm-3 col-md-3">
-      <strong>{{word-items items=thinkyBrain.ws.positiveVerbWords title="Positive Verbs"}}</strong>
-  </div>
-
-  <div class="col-sm-3 col-md-3">
-      <strong>{{word-items items=thinkyBrain.ws.negativeVerbWords title="Negative Verbs"}}</strong>
-  </div>
-
-  <div class="col-sm-3 col-md-3">
-      <strong>{{word-items items=thinkyBrain.ws.modalVerbWords title="Modal Verbs"}}</strong>
-  </div>
-
-  <div class="col-sm-3 col-md-3">
-      <strong>{{word-items items=thinkyBrain.ws.conjunctiveWords title="Conjunctive Phrases"}}</strong>
-  </div>
-
-</div>
-
 
 {{/if}}
 
-<hr />
 {{#if favorites}}
-  <h4>Favorites</h4>
-  <ul class="list-group">
-  {{#each favorites as |fav|}}
-    <li class="list-group-item">
-      <ul class="list-inline">
-        <li>
-          <button type="button" class="btn btn-danger btn-xs" {{action 'removeFavorite' fav}}>
-            Remove
-          </button>
-        </li>
-        <li>
-          {{fav}}
-        </li>
-      </ul>
-    </li>
-  {{/each}}
-  </ul>
+  <div class="favorites">
+    <h4>Favorites</h4>
+    <ul class="list-unstyled">
+    {{#each favorites as |fav|}}
+      <li class="thoughts">
+        <ul class="list-inline">
+          <li>
+            <button type="button" class="btn btn-default btn-xs" {{action 'removeFavorite' fav}}>
+              Remove
+            </button>
+          </li>
+          <li>
+            {{fav}}
+          </li>
+        </ul>
+      </li>
+    {{/each}}
+    </ul>
+  </div>
 {{/if}}
