@@ -4,20 +4,26 @@ import { storageFor } from 'ember-local-storage';
 export default Ember.Component.extend({
   favorites: storageFor('favorites'),
   thinkyBrain: Ember.inject.service('thinky-brain'),
-  diagram: null,
+  diagram:  null,
   thoughts: null,
-  debug: true,
+  debug:    false,
 
   init(){
     this._super();
-    let thoughtTuple = this.get('thinkyBrain').get('thoughtTuple');
+    let ws = this.get('thinkyBrain').get('ws');
+    let thoughtTuple = ws.get('thoughtTuple');
+    console.log('thoughtTuple=', thoughtTuple);
+
     this.set('diagram', thoughtTuple.diagram);
     this.set('thoughts', thoughtTuple.phrase);
   },
 
   actions: {
     changeThoughts: function(){
-      let thoughtTuple = this.get('thinkyBrain').get('thoughtTuple');
+      let ws = this.get('thinkyBrain').get('ws');
+      let thoughtTuple = ws.get('thoughtTuple');
+      console.log('thoughtTuple=', thoughtTuple);
+
       this.set('diagram', thoughtTuple.diagram);
       this.set('thoughts', thoughtTuple.phrase);
     },

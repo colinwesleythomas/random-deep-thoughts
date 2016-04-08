@@ -1,0 +1,13 @@
+{{yield}}
+
+<h4>{{title}}</h4>
+
+<ul class="list-unstyled">
+{{#each items as |item|}}
+  <li class="word-item">
+    {{input type="checkbox" name=item.value checked=item.enabled}}
+    {{input size="15" value=item.value}}
+    {{input size="2" value=item.weight}}
+  </li>
+{{/each}}
+</ul>

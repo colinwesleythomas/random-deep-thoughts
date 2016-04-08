@@ -1,0 +1,15 @@
+dl {
+  padding: 2px;
+}
+
+dt {
+  border-bottom: 1px solid lightgrey;
+}
+
+dd {
+  color: blue;
+}
+
+.word-item {
+  padding-bottom: 5px;
+}
